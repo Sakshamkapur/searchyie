@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
+import TapInput from './components/tapinput';
+import Tabs from './components/tabs';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [data,setData] = useState(null);
+  const [text,setText] = useState("");
+  const [searchViewOn,setSearchViewOn] = useState(false);
+  
+  return (<React.Fragment>
+      {!!searchViewOn && <TapInput data={data} text={text} setText={setText} setSearchViewOn={setSearchViewOn} />}
+      {!searchViewOn && <Tabs text={text} setData={setData} setText={setText} setSearchViewOn={setSearchViewOn} />}
+    </React.Fragment>
+  )
 }
 
 export default App;
