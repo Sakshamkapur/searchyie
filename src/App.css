@@ -42,10 +42,9 @@ input{
 }
 
 .back{
-  font-size: 2em;
-  position: absolute;
-  left: 1em;
-  top: 6%;
+  font-size: 2rem;
+  margin-top: 2%;
+  margin-left: 3%;
 }
 
 .frame-bg {

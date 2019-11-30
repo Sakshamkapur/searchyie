@@ -4,9 +4,11 @@ import Tabs from './components/tabs';
 import './App.css';
 
 function App() {
-  const [data,setData] = useState(null);
-  const [text,setText] = useState("");
-  const [searchViewOn,setSearchViewOn] = useState(false);
+  const dataVal = JSON.parse(localStorage.getItem('data'));
+  const textVal = localStorage.getItem('text');
+  const [data,setData] = useState(dataVal);
+  const [text,setText] = useState(textVal ? textVal:"");
+  const [searchViewOn,setSearchViewOn] = useState(!!dataVal);
   
   return (<React.Fragment>
       {!!searchViewOn && <TapInput data={data} text={text} setText={setText} setSearchViewOn={setSearchViewOn} />}

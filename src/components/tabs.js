@@ -62,6 +62,8 @@ export default function Tabs({setData,setText,text,setSearchViewOn}) {
 
 function saveInvertedIndexedArr(text,setData,setSearchViewOn){
     var data = getInvertedIndexedData(text);
+    localStorage.setItem('text',text);
+    localStorage.setItem('data',JSON.stringify(data));
     setData(data);
     setSearchViewOn(true);
 }
