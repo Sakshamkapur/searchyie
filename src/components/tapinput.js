@@ -3,7 +3,13 @@ import performSearch from '../actions/performsearch';
 
 function TabData({text}){
     if(text.indexOf("\n\n") > -1) text = text.split("\n\n").join("<br/><br/>");
-    return <div className="tabbox" dangerouslySetInnerHTML={{__html: text}}></div>
+    if(text.trim().length > 0){
+        return <div className="tabbox" dangerouslySetInnerHTML={{__html: text}}></div>
+    }else{
+        return <div className="tabbox">
+            <span>No Match Found !!</span>
+        </div>
+    }
 }
 
 function BackButton({setSearchViewOn}){
