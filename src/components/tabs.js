@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import getInvertedIndexedData from '../actions/invertedindexing';
-import pdfjs from 'pdfjs-dist';
-import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
+import {pdfjs} from 'react-pdf';
 
-pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function TabIcons({tabIndex,setTabIndex}){
     const icons=["fas fa-align-left","far fa-file-pdf"];
