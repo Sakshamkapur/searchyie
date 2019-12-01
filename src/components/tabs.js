@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import getInvertedIndexedData from '../actions/invertedindexing';
+import pdfjsLib from 'pdfjs-dist/webpack';
+
 // import pdfjs from 'pdfjs-dist';
 // import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 
@@ -41,7 +43,7 @@ function Data({tabIndex,fileData,setFileData,setText,text,setData,handleChange,s
                         Browse
                     </label>
                 </button>
-                <input id="pdfuploader" type="file" accept=".pdf" disabled 
+                <input id="pdfuploader" type="file" accept=".pdf" 
                     onChange={(e)=>handleChange(e,setText,setSearchViewOn,setData,setFileData)} multiple={false}/>
             </div>; break;
         default: return <h3>Please Click on a Tab Icon!</h3>; break;
@@ -84,48 +86,49 @@ function saveInvertedIndexedArr(text,setData,setSearchViewOn){
 //pdf 
 function handleChange(e,setText,setFileData,setSearchViewOn,setData){
     var file = e.target.files[0];
-    // localStorage.setItem('file',JSON.stringify({name: file.name}));
-    // setFileData(file); 
-    // var reader = new FileReader();
+    localStorage.setItem('file',JSON.stringify({name: file.name}));
+    setFileData(file); 
+    var reader = new FileReader();
 
-    // reader.onload = ()=>{
+    reader.onload = ()=>{
 
-    //     var loadingTask = pdfjs.getDocument({data: reader.result});
-    //     loadingTask.promise.then(function(pdf) {
-    //         gettext(pdf).then((tmpText)=>{
-    //             var data = getInvertedIndexedData(tmpText);
-    //             localStorage.setItem('text',tmpText);
-    //             localStorage.setItem('data',JSON.stringify(data));
-    //             setText(tmpText);
-    //             setData(data);
-    //             setSearchViewOn(true);
-    //         });
-    //     })
-    // }
+        var loadingTask = pdfjsLib.getDocument({data: reader.result});
+        loadingTask.promise.then(function(pdf) {
+            console.log(pdf)
+            gettext(pdf).then((tmpText)=>{
+                var data = getInvertedIndexedData(tmpText);
+                localStorage.setItem('text',tmpText);
+                localStorage.setItem('data',JSON.stringify(data));
+                setText(tmpText);
+                setData(data);
+                setSearchViewOn(true);
+            });
+        })
+    }
         
-    // reader.readAsBinaryString(file);
+    reader.readAsBinaryString(file);
 }
 
-// function gettext(pdf){
-//     var maxPages = pdf._pdfInfo.numPages;
-//     var countPromises = []; // collecting all page promises
-//     for (var j = 1; j <= maxPages; j++) {
-//         var page = pdf.getPage(j);
+function gettext(pdf){
+    var maxPages = pdf._pdfInfo.numPages;
+    var countPromises = []; // collecting all page promises
+    for (var j = 1; j <= maxPages; j++) {
+        var page = pdf.getPage(j);
 
-//         var txt = "";
-//         countPromises.push(page.then(function(page) { // add page promise
-//             var textContent = page.getTextContent();
-//             return textContent.then(function(text){ // return content promise
-//                 return text.items.map(function (s) { return s.str; }).join(''); // value page text 
+        var txt = "";
+        countPromises.push(page.then(function(page) { // add page promise
+            var textContent = page.getTextContent();
+            return textContent.then(function(text){ // return content promise
+                return text.items.map(function (s) { return s.str; }).join(''); // value page text 
 
-//             });
-//         }));
-//     }
-//     // Wait for all pages and join text
-//     return Promise.all(countPromises).then(function (texts) {
-//         return texts.join('\n\n');
-//     });
-// }
+            });
+        }));
+    }
+    // Wait for all pages and join text
+    return Promise.all(countPromises).then(function (texts) {
+        return texts.join('\n\n');
+    });
+}
 
 function clearAllData(setFileData,setText,setData){
     localStorage.clear();
