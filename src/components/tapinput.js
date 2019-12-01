@@ -12,8 +12,11 @@ function TabData({text}){
     }
 }
 
-function BackButton({setSearchViewOn}){
-    return <i onClick={()=>setSearchViewOn(false)} class="fas fa-arrow-left back"></i>
+function BackButton({setSearchViewOn,originalText,setText}){
+    return <i onClick={()=>{
+        setText(originalText)
+        setSearchViewOn(false)
+    }} class="fas fa-arrow-left back"></i>
 }
 
 export default function TapInput({text,setText,data,type,placeholder,setSearchViewOn}){
@@ -31,7 +34,7 @@ export default function TapInput({text,setText,data,type,placeholder,setSearchVi
 
     return (<React.Fragment>
         <div class="frame-bg">
-            <BackButton setSearchViewOn={setSearchViewOn} />
+            <BackButton setSearchViewOn={setSearchViewOn} originalText={originalText} setText={setText} />
             <input 
                 type={type} 
                 placeholder="Enter Something.." 
