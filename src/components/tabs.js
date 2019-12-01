@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import getInvertedIndexedData from '../actions/invertedindexing';
-import pdfjsLib from 'pdfjs-dist/webpack';
+import pdfjs from 'pdfjs-dist';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 
-// import pdfjs from 'pdfjs-dist';
-// import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
-
-// pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 function TabIcons({tabIndex,setTabIndex}){
     const icons=["fas fa-align-left","far fa-file-pdf"];
@@ -92,7 +90,7 @@ function handleChange(e,setText,setFileData,setSearchViewOn,setData){
 
     reader.onload = ()=>{
 
-        var loadingTask = pdfjsLib.getDocument({data: reader.result});
+        var loadingTask = pdfjs.getDocument({data: reader.result});
         loadingTask.promise.then(function(pdf) {
             console.log(pdf)
             gettext(pdf).then((tmpText)=>{
