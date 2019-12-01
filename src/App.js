@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import TapInput from './components/tapinput';
 import Tabs from './components/tabs';
 import './App.css';

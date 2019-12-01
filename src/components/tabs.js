@@ -1,8 +1,7 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import getInvertedIndexedData from '../actions/invertedindexing';
 import pdfjs from 'pdfjs-dist';
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
-import { read } from 'fs';
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 

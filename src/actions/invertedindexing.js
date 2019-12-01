@@ -10,7 +10,7 @@ export default function getInvertedIndexedData(str){
         words.map((text,wordIndex)=>{
             var word = text.toLowerCase().trim();
             if(word.length > 0){
-                const found = arr.findIndex(obj=>obj.word == word);
+                const found = arr.findIndex(obj=>obj.word === word);
                 if(found !== -1){
                     arr[found].data.push({
                         docIndex: paraIndex,

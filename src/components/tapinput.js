@@ -17,7 +17,7 @@ function BackButton({setFileData,setSearchViewOn,originalText,setText}){
         setText(localStorage.getItem('text'))
         setFileData(JSON.parse(localStorage.getItem('file')))
         setSearchViewOn(false)
-    }} class="fas fa-arrow-left back"></i>
+    }} className="fas fa-arrow-left back"></i>
 }
 
 export default function TapInput({text,setText,data,type,setFileData,setSearchViewOn}){
@@ -34,7 +34,7 @@ export default function TapInput({text,setText,data,type,setFileData,setSearchVi
     },[searchword]);
 
     return (<React.Fragment>
-        <div class="frame-bg">
+        <div className="frame-bg">
             <BackButton setSearchViewOn={setSearchViewOn} setFileData={setFileData} originalText={originalText} setText={setText} />
             <input 
                 type={type} 
