@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import getInvertedIndexedData from '../actions/invertedindexing';
-import {pdfjs} from 'react-pdf';
+//# comment off on local to see pdf
+// import {pdfjs} from 'react-pdf';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function TabIcons({tabIndex,setTabIndex}){
     const icons=["fas fa-align-left","far fa-file-pdf"];
@@ -31,6 +32,7 @@ function Data({tabIndex,fileData,setFileData,setText,text,setData,handleChange,s
         case 0: return <textarea value={text} onChange={(e)=>setText(e.target.value)} placeholder="Enter Some Text..."></textarea>; break;
         case 1: return <div className="uploaderbox">
                 <h3>Upload</h3>
+                Working on Local, having version issues on Deployment.
                 {fileData && <div>
                     <i className="far fa-file-pdf" style={{fontSize: '3em'}} />
                     <p>{fileData.name}</p>
@@ -40,7 +42,7 @@ function Data({tabIndex,fileData,setFileData,setText,text,setData,handleChange,s
                         Browse
                     </label>
                 </button>
-                <input id="pdfuploader" type="file" accept=".pdf" 
+                <input id="pdfuploader" type="file" accept=".pdf" disabled //# remove disabled on local to see pdf
                     onChange={(e)=>handleChange(e,setText,setSearchViewOn,setData,setFileData)} multiple={false}/>
             </div>; break;
         default: return <h3>Please Click on a Tab Icon!</h3>; break;
@@ -80,30 +82,30 @@ function saveInvertedIndexedArr(text,setData,setSearchViewOn){
 }
 
 
-//pdf 
+//# comment off on local to see pdf
 function handleChange(e,setText,setFileData,setSearchViewOn,setData){
     var file = e.target.files[0];
-    localStorage.setItem('file',JSON.stringify({name: file.name}));
-    setFileData(file); 
-    var reader = new FileReader();
+    // localStorage.setItem('file',JSON.stringify({name: file.name}));
+    // setFileData(file); 
+    // var reader = new FileReader();
 
-    reader.onload = ()=>{
+    // reader.onload = ()=>{
 
-        var loadingTask = pdfjs.getDocument({data: reader.result});
-        loadingTask.promise.then(function(pdf) {
-            console.log(pdf)
-            gettext(pdf).then((tmpText)=>{
-                var data = getInvertedIndexedData(tmpText);
-                localStorage.setItem('text',tmpText);
-                localStorage.setItem('data',JSON.stringify(data));
-                setText(tmpText);
-                setData(data);
-                setSearchViewOn(true);
-            });
-        })
-    }
+    //     var loadingTask = pdfjs.getDocument({data: reader.result});
+    //     loadingTask.promise.then(function(pdf) {
+    //         console.log(pdf)
+    //         gettext(pdf).then((tmpText)=>{
+    //             var data = getInvertedIndexedData(tmpText);
+    //             localStorage.setItem('text',tmpText);
+    //             localStorage.setItem('data',JSON.stringify(data));
+    //             setText(tmpText);
+    //             setData(data);
+    //             setSearchViewOn(true);
+    //         });
+    //     })
+    // }
         
-    reader.readAsBinaryString(file);
+    // reader.readAsBinaryString(file);
 }
 
 function gettext(pdf){
