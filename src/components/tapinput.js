@@ -12,14 +12,15 @@ function TabData({text}){
     }
 }
 
-function BackButton({setSearchViewOn,originalText,setText}){
+function BackButton({setFileData,setSearchViewOn,originalText,setText}){
     return <i onClick={()=>{
-        setText(originalText)
+        setText(localStorage.getItem('text'))
+        setFileData(JSON.parse(localStorage.getItem('file')))
         setSearchViewOn(false)
     }} class="fas fa-arrow-left back"></i>
 }
 
-export default function TapInput({text,setText,data,type,placeholder,setSearchViewOn}){
+export default function TapInput({text,setText,data,type,setFileData,setSearchViewOn}){
     const [searchword,setSearchWord] = useState("");
     const [originalText,setOriginalText] = useState(text);
 
@@ -34,7 +35,7 @@ export default function TapInput({text,setText,data,type,placeholder,setSearchVi
 
     return (<React.Fragment>
         <div class="frame-bg">
-            <BackButton setSearchViewOn={setSearchViewOn} originalText={originalText} setText={setText} />
+            <BackButton setSearchViewOn={setSearchViewOn} setFileData={setFileData} originalText={originalText} setText={setText} />
             <input 
                 type={type} 
                 placeholder="Enter Something.." 

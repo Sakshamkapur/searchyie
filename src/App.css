@@ -126,6 +126,7 @@ input{
   font-weight: bold;
   padding: 10px 2em;
   position: relative;
+  margin-left: 1em;
   text-transform: uppercase;
 }
 
